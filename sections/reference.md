@@ -64,11 +64,22 @@ export enum ZerojsEventType {
 
 ## Local Storage
 
-// todo - describe local storage keys used and what is there
+The following keys are used by Zerojs to facilitate different functionalities
+
+| key               | description                                        |
+| ----------------- | -------------------------------------------------- |
+| `gp_zjs_config`   | used to store publisher config                     |
+| `gp_zjs_report`   | used to store metrics and event data for reporting |
+| `gp_zjs_freq_cap` | used to store data for frequency capping           |
 
 ## Endpoint Calls
 
-// todo - describe endpoints called (ie sync and report)
+The following HTTPS endpoints are used by Zerojs
+
+| endpoint                                                       | description                                                       |
+| -------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `https://api.glimpsezero.io/edge/v1/sync/state/:pubId/:digest` | sync and update publisher config if the config digest has changed |
+| `https://api.glimpsezero.io/edge/v1/sync/events/:pubId`        | report impression metrics and events                              |
 
 ## What Next?
 
