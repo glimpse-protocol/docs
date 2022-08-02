@@ -153,4 +153,4 @@ And that's it 🥳 However, just to be safe its always a good idea to test. It m
 
 ## What next?
 
-[👈 Back (introduction)](./introduction.md) | [Next (api reference) 👉](./api.md)
+[👈 Back (introduction)](./introduction.md) | [Next (reference) 👉](./reference.md)
