@@ -1,8 +1,8 @@
-# Zero.js api
+# Reference
 
 Once loaded you can access the zero.js object on on `window.zjs`.
 
-## zero.js interface and related types
+## zero.js interface and types
 
 ```ts
 export interface IZeroJs {

@@ -14,7 +14,7 @@ These docs are 🚧 under construction 🚧 and expected to change. If you have 
 
 - [Introduction](sections/introduction.md)
 - [Getting started](sections/getting-started.md)
-- [Zero.js api](sections/api.md)
+- [Reference](sections/reference.md)
 - [FAQs](sections/faq.md)
 
 ## Contact us
