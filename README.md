@@ -1,6 +1,6 @@
 # Glimpse Zero
 
-Bottom line up front
+## Bottom line up front
 
 - Zero.js is a client-side javascript library.
 - Zero.js delivers demand path optimisation for programmatic advertising requests.
@@ -16,6 +16,10 @@ These docs are 🚧 under construction 🚧 and expected to change. If you have 
 - [Getting started](sections/getting-started.md)
 - [Reference](sections/reference.md)
 - [FAQs](sections/faq.md)
+
+## Demo
+
+Checkout our demo at [demo.glimpsezero.io](https://demo.glimpsezero.io).
 
 ## Contact us
 
