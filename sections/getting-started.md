@@ -39,12 +39,12 @@ There are three steps to get up and running:
   zjs.setPubId("a9j3")
   ```
 
-1. Finally run the prematch process and pass the unmatched ad units to prebid:
+1. Finally run the prematch process and pass the unmatched ad units to your header bidding setup:
 
   ```ts
   const adUnits = [ /* ... */ ]
   const [unmatched, matched] = zjs.prematch(adUnits)
-  runPrebid(unmatched)
+  runHeaderBidding(unmatched)
   ```
 
 Bringing this all together we get:
@@ -140,16 +140,17 @@ Our self-service portal and automatic GAM syncing isn't ready for prime time yet
 - What slots it targets
 - What custom targeting key value you've used
 
-
 ### Testing
 
-And that's it 🥳 However, just to be safe its always a good idea to test. It may take a few minutes for the line item to go live. Once it does you can enable debugging by running `localStorage.debug="glimpse*"` and should see the following process on a page:
+And that's it 🥳 However, just to be safe it's always a good idea to test. It may take a few minutes for the line item to go live. Once it does you can enable debugging by running `localStorage.debug="glimpse*"` and should see the following process on a page:
 
 1. On the first load zero.js realises it has no targeting loaded and passes all units through to your `runActions` setup.
 2. In the background zero.js will fetch targeting information from our servers and save it to the local storage key `gp_zjs_config`.
 3. On a subsequent load zero.js will divide your units into matched and unmatched. It will tag matched units with the provided key values and pass the unmatched units, if any, through to `runAuctions`.
 4. When runActions completes GPT will tag slots and send an add call to Google Ad Manager.
-5. The response should have your Sponsorship line item against the matched slot and the other line items should fire as you would expect them to (for example triggering a Prebid line item)
+5. The response should have your Sponsorship line item against the matched slot and the other line items should fire as you would expect them to (for example triggering a Prebid line item).
+
+If you have any issues reachout to [support@glimpsezero.io](mailto:support@glimpsezero.io).
 
 ## What next?
 
