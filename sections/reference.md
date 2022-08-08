@@ -36,7 +36,7 @@ export interface IZeroJs {
    * @param units: AdUnit[] a list of ad units for demand path optimisation
    * @return [Unmatched[], Matched[]] a tuple of unmatched and matched ad units
    */
-  pretarget: (units: AdUnit[]) => [Unmatched[], Matched[]]
+  prematch: (units: AdUnit[]) => [Unmatched[], Matched[]]
 }
 
 export type Command = () => void

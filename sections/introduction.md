@@ -4,11 +4,11 @@
 
 ## Background
 
-The programmatic advertising system emits worrying amounts of CO2. In the worst cases, delivering a single impression involves the processing, storing and transmitting of data across hundreds of nodes. The result of this noisy system is that a single impression can emit over 1 gram of carbon dioxide. It so inefficient that digital advertising accounts for 10% of all Internet CO2 emissions, and in turn, the Internet accounts for 2% of global emissions 🤯
+The programmatic advertising system emits worrying amounts of CO2. In the worst cases, delivering a single impression involves the processing, storing and transmitting of data across hundreds of nodes. The result of this noisy system is that a single impression can emit over 1 gram of carbon dioxide. It is so inefficient that digital advertising accounts for 10% of all Internet CO2 emissions, and in turn, the Internet accounts for 2% of global emissions. 🤯
 
-> ℹ️ Programmatic advertising falls into an Advertiser's *scope 3* (supply chain) emissions and so they must reduce these emissions to meet net zero targets (offsetting is insufficient).
+> ℹ️ Programmatic advertising falls into an Advertiser's *scope 3* (supply chain) emissions, and so they must reduce these emissions to meet net-zero targets (offsetting alone is insufficient).
 
-The Glimpse Zero system enables publishers to make their inventory available in a carbon efficient manner. This inventory is called a Green Media Product. In the next section we'll provide an overview for how we do this.
+The Glimpse Zero system enables publishers to make their inventory available in a carbon-efficient manner. This inventory is called a Green Media Product. In the next section we'll provide an overview of how we do this.
 
 ## Ad decisioning process
 
@@ -30,11 +30,11 @@ Our client-side library, zero.js, brings targeting criteria into the browser to 
 ![Ad decision prematch](assets/introduction-ad-prematch.png)
 *Fig 2. Bringing prematched ad decisioning to the client*
 
-This approach reduces CO2, improves page performance and has no impact to publisher revenue 🥳
+This approach reduces CO2, improves page performance and has no impact on publisher revenue. 🥳
 
 ## Features
 
-1. **Prematching is non-blocking**. We understand that page performance directly impacts yield and so zero.js' prematching process does not make any blocking function calls (ie no network or long running calls).
+1. **Prematching is non-blocking**. We understand that page performance directly impacts yield and so zero.js' prematching process does not make any blocking function calls (ie no network or long-running calls).
 
 2. **Line item synchronisation engine**. To ensure #1, zero.js runs a background process to synchronise targeting criteria and saves it into local storage. So that when #1 runs it can do so without impacting your page load.
 

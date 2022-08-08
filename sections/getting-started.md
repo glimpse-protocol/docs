@@ -47,7 +47,7 @@ There are three steps to get up and running:
   runHeaderBidding(unmatched)
   ```
 
-Bringing this all together we get:
+Bringing this together we get:
 
 ```html
 <script async src="https://www.googletagservices.com/tag/js/gpt.js"></script>
@@ -79,7 +79,7 @@ Bringing this all together we get:
 
   zjs.cmd.push(() => {
     zjs.setPubId("a9j3")
-    const [unmatched, matched] = zjs.go(adUnits)
+    const [unmatched, matched] = zjs.prematch(adUnits)
     runHeaderBidding(unmatched)
   })
 
@@ -108,7 +108,7 @@ Bringing this all together we get:
 
 ### Google Ad Manager
 
-In the interest of brevity this walkthrough overlooks many values you'll want to set in practice: rate, frequency capping, etc.
+In the interest of brevity, this walk through overlooks many values you'll want to set in practice: rate, frequency capping, etc.
 
 1. Create a **Sponsorship** line item to prematch.
 
@@ -122,7 +122,7 @@ In the interest of brevity this walkthrough overlooks many values you'll want to
 
   ![inventroy targeting](./assets/getting-started-target-inventory.png)
 
-1. Target a custom key value to represent when this line item should fire. For example below we're activating this line item when the key `gz` is present with a value of `true`.
+1. Target a custom key value to represent when this line item should fire. For example, below we're activating this line item when the key `gz` is present with a value of `true`.
 
   ![custom targeting](./assets/getting-started-target-custom.png)
 
@@ -132,7 +132,7 @@ In the interest of brevity this walkthrough overlooks many values you'll want to
 
 ### Glimpse Zero Portal
 
-Our self-service portal and automatic GAM syncing isn't ready for prime time yet. So for now you'll need to provide us with your **Sponsorship** details so we can load it into our system. Generally we'll need to know:
+Our self-service portal and automatic GAM syncing isn't ready for prime time yet. So, for now, you'll need to provide us with your **Sponsorship** details so we can load it into our system. Generally we'll need to know:
 
 - When it starts and ends
 - Blackout or day parting details
@@ -142,13 +142,13 @@ Our self-service portal and automatic GAM syncing isn't ready for prime time yet
 
 ### Testing
 
-And that's it 🥳 However, just to be safe it's always a good idea to test. It may take a few minutes for the line item to go live. Once it does you can enable debugging by running `localStorage.debug="glimpse*"` and should see the following process on a page:
+And that's it, 🥳 However, just to be safe, it's always a good idea to test. It may take a few minutes for the line item to go live. Once it does, you can enable debugging by running `localStorage.debug="glimpse*"` and should see the following process on a page:
 
 1. On the first load zero.js realises it has no targeting loaded and passes all units through to your `runActions` setup.
 2. In the background zero.js will fetch targeting information from our servers and save it to the local storage key `gp_zjs_config`.
 3. On a subsequent load zero.js will divide your units into matched and unmatched. It will tag matched units with the provided key values and pass the unmatched units, if any, through to `runAuctions`.
 4. When runActions completes GPT will tag slots and send an add call to Google Ad Manager.
-5. The response should have your Sponsorship line item against the matched slot and the other line items should fire as you would expect them to (for example triggering a Prebid line item).
+5. The response should have your Sponsorship line item against the matched slot, and the other line items should fire as you would expect them to (for example, triggering a Prebid line item).
 
 If you have any issues reachout to [support@glimpsezero.io](mailto:support@glimpsezero.io).
 
