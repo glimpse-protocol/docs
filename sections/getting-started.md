@@ -36,7 +36,7 @@ There are three steps to get up and running:
 1. Set your 4 character publisher id:
 
   ```ts
-  zjs.setPubId("a9j3")
+  zjs.setConfig({ id: "a9j3" })
   ```
 
 1. Finally run the prematch process and pass the unmatched ad units to your header bidding setup:
@@ -78,7 +78,7 @@ Bringing this together we get:
   zjs.cmd = window.zjs.cmd || []
 
   zjs.cmd.push(() => {
-    zjs.setPubId("a9j3")
+    zjs.setConfig({ id: "a9j3" })
     const [unmatched, matched] = zjs.prematch(adUnits)
     runHeaderBidding(unmatched)
   })

@@ -5,7 +5,7 @@ Once loaded you can access the zero.js object on on `window.zjs`.
 ## zero.js interface and types
 
 ```ts
-export interface IZeroJs {
+interface IZeroJs {
   /**
    * A list of commands to execute when the zero.js api is ready. Once ready
    * commands pushed onto this array are executed immediately.
@@ -16,10 +16,10 @@ export interface IZeroJs {
    * Sets the publisher id to use for sync'ing line items and reporting events. This is required and
    * must be called before interacting with zero.js.
    *
-   * @param id:string your unique 6 character publisher id provided by glimpse zero
+   * @param config:IZeroJsConfig on-site configuration options
    * @returns void
    */
-  setPubId: (id: string) => void
+  setConfig: (config: IZeroJsConfig) => void
 
   /**
    * Register an event listener against a specific event.
@@ -39,20 +39,24 @@ export interface IZeroJs {
   prematch: (units: AdUnit[]) => [Unmatched[], Matched[]]
 }
 
-export type Command = () => void
+interface IZeroJsConfig {
+  id: PubId
+}
 
-export type AdUnit = {
+type Command = () => void
+
+type AdUnit = {
   code: string
 }
 
-export type Listener = <P>(event: ZerojsEvent<P>) => void
+type Listener = <P>(event: ZerojsEvent<P>) => void
 
-export type ZerojsEvent<P> = {
+type ZerojsEvent<P> = {
   type: ZerojsEventType
   payload?: P
 }
 
-export enum ZerojsEventType {
+enum ZerojsEventType {
   ConfigUpdated = "configUpdated",
   AuctionRun = "auctionRun",
   AdUnitsTargeted = "adUnitsTargeted",
