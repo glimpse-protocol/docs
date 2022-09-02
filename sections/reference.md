@@ -5,7 +5,7 @@ Once loaded you can access the zero.js object on on `window.zjs`.
 ## zero.js interface and types
 
 ```ts
-interface IZeroJs {
+interface IZeroJsApi {
   /**
    * A list of commands to execute when the zero.js api is ready. Once ready
    * commands pushed onto this array are executed immediately.
@@ -19,27 +19,27 @@ interface IZeroJs {
    * @param config:IZeroJsConfig on-site configuration options
    * @returns void
    */
-  setConfig: (config: IZeroJsConfig) => void
+  init: (config: Config) => void
 
   /**
    * Register an event listener against a specific event.
    *
-   * @param event: ZerojsEventType the event to listen for
+   * @param event: EventType the event to listen for
    * @param listener: Listener the function to callback when the specified event occurs
    * @returns void
    */
-  onEvent: (event: ZerojsEventType, listener: Listener) => void
+  on: (event: EventType, handler: EventHandler) => void
 
   /**
    * Run pre-emptive ad server targeting against the given ad units.
    *
    * @param units: AdUnit[] a list of ad units for demand path optimisation
-   * @return [Unmatched[], Matched[]] a tuple of unmatched and matched ad units
+   * @return PrematchResult an object containing misses and hits.
    */
-  prematch: (units: AdUnit[]) => [Unmatched[], Matched[]]
+  prematch: (units: AdUnit[]) => { misses: AdUnit[], hits: AdUnit[] }
 }
 
-interface IZeroJsConfig {
+interface Config {
   id: PubId
 }
 
@@ -49,20 +49,24 @@ type AdUnit = {
   code: string
 }
 
-type Listener = <P>(event: ZerojsEvent<P>) => void
+export type EventHandler = <T>(event: EventBody<T>) => void
 
-type ZerojsEvent<P> = {
-  type: ZerojsEventType
-  payload?: P
+export type EventBody<P> = {
+  ts: number
+  type: EventType
+  payload: P | undefined
 }
 
-enum ZerojsEventType {
-  ConfigUpdated = "configUpdated",
-  AuctionRun = "auctionRun",
-  AdUnitsTargeted = "adUnitsTargeted",
-  AdRequested = "adRequested",
-  AdServed = "adServed",
-  AdViewed = "adViewed"
+export enum EventType {
+  PlanLoaded = "PLAN_LOADED",
+  PlanFetched = "PLAN_FETCHED",
+  PlanSaved = "PLAN_SAVED",
+  PrematchStarted = "PREMATCH_STARTED",
+  PrematchFinished = "PREMATCH_FINISHED",
+  AdUnitsTagged = "AD_UNITS_TAGGED",
+  AdServed = "AD_SERVED",
+  AdViewed = "AD_VIEWED",
+  QueuedMatchedUnitTagging = "QUEUED_MATCHED_UNIT_TAGGING",
 }
 ```
 

@@ -8,7 +8,7 @@
 - Zero.js increase page performance.
 - Zero.js is yield neutral in the worst case and yield postive in the rest.
 
-These docs are 🚧 under construction 🚧 and expected to change. If you have suggestions or spot errors let us know and we'll do our best to address them.
+These docs and zero.js are 🚧 under construction 🚧 and expected to change. If you have suggestions or spot errors let us know and we'll do our best to address them.
 
 ## Table of contents
 

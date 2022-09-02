@@ -24,30 +24,66 @@ There are three steps to get up and running:
   <script async src="https://cdn.glimpsezero.io/scripts/zero.js"></script>
   ```
 
-  > ℹ️ You can fix the zero.js library to a specific version by appending the SEMVER to src url: `zero-1.0.1.js`. Alternatively if you use `zero.js` the latest version is used.
+  > ℹ️ You can import a specific version by appending the SEMVER to src url: `zero-1.0.1.js`. If you use `zero.js`  then you're always getting the latest and greatest.
 
 1. Initialised the zero.js command queue:
 
   ```ts
-  var zjs = window.zjs || {}
-  zjs.cmd = window.zjs.cmd || []
+  window.zjs = window.zjs || {}
+  window.zjs.cmd = window.zjs.cmd || []
   ```
 
-1. Set your 4 character publisher id:
+1. Initialise zero.js with your unique sync id:
 
   ```ts
-  zjs.setConfig({ id: "a9j3" })
+  window.zjs.cmd.push(() => {
+    zjs.init({
+      id: "demo"
+    })
+  })
   ```
 
-1. Finally run the prematch process and pass the unmatched ad units to your header bidding setup:
+1. Next, run the prematch process and pass the unmatched ad units to your header bidding setup:
+
+> ℹ️ The default setup expects the adUnitPath to be on a 'path' key. For example units[].path = "/1234567/environment-728x90". If you use a different key this can be set in the initialisation by passing in `adUnitPathKey`. For example: `{ id: "demo", adUnitPathKey: "code" }`.
 
   ```ts
-  const adUnits = [ /* ... */ ]
-  const [unmatched, matched] = zjs.prematch(adUnits)
-  runHeaderBidding(unmatched)
+  const units = [ /* ... */ ]
+
+  window.zjs.cmd.push(() => {
+    zjs.init({
+      id: "demo"
+    })
+    const { misses } = zjs.prematch(units)
+    runHeaderBidding(misses)
+  })
+  ```
+
+1. Finally, in the event all units are prematched misses will be an empty list and so prebid won't run 🥳 In this instance, and depending on your unique configuration, you may need to call `googletag.pubads().refresh()`:
+
+  ```ts
+  const units = [ /* ... */ ]
+
+  window.zjs.cmd.push(() => {
+    zjs.init({
+      id: "demo"
+    })
+
+    const { misses } = zjs.prematch(units)
+    if(misses.length === 0) {
+        console.log("All units prematched no prebid to run")
+        googletag.cmd.push(() => {
+          googletag.pubads().refresh()
+        })
+    } else {
+      runHeaderBidding(misses)
+    }
+  })
   ```
 
 Bringing this together we get:
+
+> ℹ️ The setup below is for demonstration purposes. As setups will differ from pub to pub.
 
 ```html
 <script async src="https://www.googletagservices.com/tag/js/gpt.js"></script>
@@ -57,7 +93,7 @@ Bringing this together we get:
   const adUnits = [
     {
       div: "unit-1",
-      code: "/1234567/environment-728x90",
+      path: "/1234567/environment-728x90",
       sizes: [[728, 90]]
       mediaTypes: {
         banner: {
@@ -73,24 +109,14 @@ Bringing this together we get:
     // ...
   ]
 
-  // Setup Glimpse Zero
-  var zjs = window.zjs || {}
-  zjs.cmd = window.zjs.cmd || []
-
-  zjs.cmd.push(() => {
-    zjs.setConfig({ id: "a9j3" })
-    const [unmatched, matched] = zjs.prematch(adUnits)
-    runHeaderBidding(unmatched)
-  })
-
   // Setup Google Publisher Tag
-  var googletag = window.googletag || {}
-  googletag.cmd = window.googletag.cmd || []
+  window.googletag = window.googletag || {}
+  window.googletag.cmd = window.googletag.cmd || []
 
   googletag.cmd.push(() => {
-    adUnits.forEach(({ code, sizes, div }) => {
+    adUnits.forEach(({ path, sizes, div }) => {
       googletag
-        .defineSlot(code, sizes, div)
+        .defineSlot(path, sizes, div)
         .addService(googletag.pubads())
     })
     googletag.pubads().disableInitialLoad()
@@ -98,13 +124,31 @@ Bringing this together we get:
     googletag.enableServices()
   })
 
+  // Setup Glimpse Zero
+  window.zjs = window.zjs || {}
+  window.zjs.cmd = window.zjs.cmd || []
+
+  window.zjs.cmd.push(() => {
+    zjs.init({
+      id: "demo"
+    })
+
+    const { misses } = zjs.prematch(units)
+    if(misses.length === 0) {
+        console.log("All units prematched skipping header bidding")
+        googletag.cmd.push(() => {
+          googletag.pubads().refresh()
+        })
+    } else {
+      runHeaderBidding(misses)
+    }
+  })
+
   function runHeaderBidding(units) {
     // Header bidding logic
   }
 </script>
 ```
-
-> ℹ️ There are lots of valid ways to configure your ad stack; the setup above is for demonstration purposes.
 
 ### Google Ad Manager
 
