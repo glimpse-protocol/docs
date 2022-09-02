@@ -186,7 +186,7 @@ Our self-service portal and automatic GAM syncing isn't ready for prime time yet
 
 ### Testing
 
-And that's it, 🥳 However, just to be safe, it's always a good idea to test. It may take a few minutes for the line item to go live. Once it does, you can enable debugging by running `localStorage.debug="glimpse*"` and should see the following process on a page:
+And that's it, 🥳 However, just to be safe, it's always a good idea to test. It may take a few minutes for the line item to go live. Once it does, you can enable debugging by running `localStorage.debug="zero*"` and should see the following process on a page:
 
 1. On the first load zero.js realises it has no targeting loaded and passes all units through to your `runActions` setup.
 2. In the background zero.js will fetch targeting information from our servers and save it to the local storage key `gp_zjs_config`.

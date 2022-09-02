@@ -37,6 +37,11 @@ interface IZeroJsApi {
    * @return PrematchResult an object containing misses and hits.
    */
   prematch: (units: AdUnit[]) => { misses: AdUnit[], hits: AdUnit[] }
+
+  /**
+   * Delete all zero.js state data.
+   */
+  reset: () => void
 }
 
 interface Config {
