@@ -24,7 +24,7 @@ There are three steps to get up and running:
   <script async src="https://cdn.glimpsezero.io/scripts/zero.js"></script>
   ```
 
-  > ℹ️ You can import a specific version by appending the SEMVER to src url: `zero-1.0.1.js`. If you use `zero.js`  then you're always getting the latest and greatest.
+  > ℹ️ You can import a specific version by appending the desired SEMVER to src url: `zero-0.1.0.js`. If you use `zero.js`  then you're always getting the latest and greatest.
 
 1. Initialised the zero.js command queue:
 
